@@ -14,12 +14,14 @@ public:
 	void println();
 	void println(const char* str);
 	void println(char value);
+	void println(unsigned int value);
 	void println(int value);
 	void println(int value, int mode);
 	void println(float value);
 
 	void print(const char* str);
 	void print(char value);
+	void print(unsigned int value);
 	void print(int value);
 	void print(int value, int mode);
 	void print(float value);

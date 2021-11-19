@@ -142,6 +142,7 @@
     <ClCompile Include="ArduinoStub.cpp" />
     <ClCompile Include="Buzzer.cpp" />
     <ClCompile Include="DallasTemperatureStub.cpp" />
+    <ClCompile Include="HtmlComposer.cpp" />
     <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="OneWireStub.cpp" />
     <ClCompile Include="PirMotionSensor.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Buzzer.h" />
     <ClInclude Include="ClassNames.h" />
     <ClInclude Include="DallasTemperatureStub.h" />
+    <ClInclude Include="HtmlComposer.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="NtpServerTime.h" />
     <ClInclude Include="OneWireStub.h" />

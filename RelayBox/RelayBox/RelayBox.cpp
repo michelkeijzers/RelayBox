@@ -15,6 +15,7 @@
 #include "NtpServerTime.h"
 #include "WifiConnection.h"
 #include "RelayBoxServer.h"
+#include "HtmlComposer.h"
 
 // DS18B20
 const int ONE_WIRE_BUS = 4; // TODO
@@ -84,7 +85,9 @@ void RelayBox::loop()
         
         _time.Receive();
         serverData.SetTime(_time.TimeAsString());
+        
         Serial.println("UpdateHTML");
-        _server.Send(200, _server.ComposeHtml());
+        HtmlComposer composer(serverData);
+        _server.Send();
     }
 }

@@ -17,14 +17,11 @@ public:
 
 	void HandleClient();
 
-	static void Send(int code, STRING text);
-
 	static ServerData& GetServerData();
 
-	static STRING ComposeHtml();
+	static void Send(int code = 200);
 
 private:
-
 	static void OnConnect();
 	static void HandleLed1On();
 	static void HandleLed1Off();

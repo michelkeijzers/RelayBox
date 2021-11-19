@@ -46,6 +46,12 @@ void SerialClass::println(int value, int mode)
 
 
 
+void SerialClass::println(unsigned int value)
+{
+	println(value, DEC);
+}
+
+
 void SerialClass::println(int value)
 {
 	println(value, DEC);
@@ -81,6 +87,12 @@ void SerialClass::print(char value)
 {
 	swprintf_s(_message, L"%c", value);
 	OutputDebugString(_message);
+}
+
+
+void SerialClass::print(unsigned int value)
+{
+	print(value, DEC);
 }
 
 

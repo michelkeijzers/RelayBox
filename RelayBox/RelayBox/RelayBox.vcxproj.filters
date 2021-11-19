@@ -78,6 +78,9 @@
     <ClCompile Include="ServerData.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="HtmlComposer.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buzzer.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files\App</Filter>
     </ClInclude>
     <ClInclude Include="ServerData.h">
+      <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="HtmlComposer.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
   </ItemGroup>
