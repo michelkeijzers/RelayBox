@@ -1,0 +1,18 @@
+﻿"Symbol";"Value";"Unit";
+"REFERENCE";"KM-59G";"";
+"MATERIAL";"ABS";"";
+"SUPPLIER";"MASZCZYK";"";
+"Width";"75";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartNumber";"90-11012021-032198";"";
+"TraceParts.PartLanguage";"en";"";
+"DESIGN";"Standard Enclosures - Series E, Length 113 mm, Width 75 mm, Height 56 mm, Material ABS";"";
+"TraceParts.InstanceId";"90-11012021-03219848KDK8Y1Z3GILL7LU5VE9VA80";"";
+"Length";"113";"";
+"TraceParts.PartTitle";"Standard Enclosures - Series E - KM-59";"";
+"Height";"56";"";
+"Available_options";"Light Grey";"";
+"TraceParts.PartVersion";"1.0.5";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartStatusId";"";"";
+"TraceParts.ClassPath";"MASZCZYK_1868755678:90-11012021-032198";"";
