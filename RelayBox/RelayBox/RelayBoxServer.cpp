@@ -116,21 +116,23 @@ void RelayBoxServer::HandleClient()
     //Serial.print("  Motion sensor: ");
     //Serial.println(_serverData.IsPirMotionSensorMotionDetected());
     ptr += "<p>PIR Motion Sensor: ";
-    if (millis() <= 60000)
+    if (_serverData.PirMotionSensorSecondsUntilInitialized() == 0)
     {
-        ptr += "Initializing: ";
-        sprintf_s(buffer, "%2d", millis() / 1000);
+        if (_serverData.IsPirMotionSensorMotionDetected())
+        {
+            ptr += "Motion Detected";
+        }
+        else
+        {
+            ptr += "No Motion";
+        }
+    }
+    else
+    {
+        sprintf_s(buffer, "Initializing for %d s", _serverData.PirMotionSensorSecondsUntilInitialized());
         ptr += buffer;
-        ptr += "s / 60s";
     }
-    else if (_serverData.IsPirMotionSensorMotionDetected())
-    {
-        ptr += "Motion Detected";
-    }
-    else // !_pirMotionSensorMotionDetected
-    {
-        ptr += "No Motion";
-    }
+    
     ptr += "</p>";
 
     ptr += "</body>\n";

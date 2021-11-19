@@ -9,6 +9,7 @@ ServerData::ServerData()
 	  _temperature(0.0f),
 	  _led1Status(LOW),
 	  _led2Status(LOW),
+	  _pirMotionSensorSecondsUntilInitialized(0),
 	  _pirMotionSensorMotionDetected(false),
 	  _time("")
 {
@@ -68,15 +69,22 @@ void ServerData::SetLdrSensorValue(int value)
 }
 
 
+int ServerData::PirMotionSensorSecondsUntilInitialized()
+{
+	return _pirMotionSensorSecondsUntilInitialized;
+}
+
+
 bool ServerData::IsPirMotionSensorMotionDetected()
 {
 	return _pirMotionSensorMotionDetected;
 }
 
 
-void ServerData::SetPirMotionSensorMotionDetected(bool status)
+void ServerData::SetPirMotionSensorData(int secondsUntilInitialized, bool motionDetected)
 {
-	_pirMotionSensorMotionDetected = status;
+	_pirMotionSensorSecondsUntilInitialized = secondsUntilInitialized;
+	_pirMotionSensorMotionDetected = motionDetected;
 }
 
 

@@ -66,6 +66,8 @@ void RelayBox::loop()
     ServerData& serverData = _server.GetServerData();
 
     _server.HandleClient();
+
+    //TODO Move to RelayModule
     digitalWrite(PIN_LED_1, serverData.GetLed1Status());
     digitalWrite(PIN_LED_2, serverData.GetLed2Status());
 
@@ -75,10 +77,10 @@ void RelayBox::loop()
         serverData.SetLdrSensorValue(analogRead(PIN_LDR));
         _tempSensors.requestTemperatures(); // Takes quite some time
         serverData.SetTemperature(_tempSensors.getTempCByIndex(0));
-        if (millis() > 60000)
-        {
-            serverData.SetPirMotionSensorMotionDetected(_pirMotionSensor.IsMotionDetected());
-        }
+
+        // Set to MotionDetector
+        _pirMotionSensor.Update();
+        serverData.SetPirMotionSensorData(_pirMotionSensor.SecondsUntilInitialized(), _pirMotionSensor.IsMotionDetected());
         
         _time.Receive();
         serverData.SetTime(_time.TimeAsString());

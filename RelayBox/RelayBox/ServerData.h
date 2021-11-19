@@ -18,8 +18,9 @@ public:
 	int GetLdrSensorValue();
 	void SetLdrSensorValue(int value);
 	
+	int PirMotionSensorSecondsUntilInitialized();
 	bool IsPirMotionSensorMotionDetected();
-	void SetPirMotionSensorMotionDetected(bool status);
+	void SetPirMotionSensorData(int secondsUntilInitialized, bool motionDetected);
 
 	const char* GetTime();
 	void SetTime(const char* time);
@@ -29,6 +30,7 @@ private:
 	bool _led2Status;
 	float _temperature;
 	int _ldrSensorValue;
+	int _pirMotionSensorSecondsUntilInitialized;
 	bool _pirMotionSensorMotionDetected;
 	const char* _time;
 };

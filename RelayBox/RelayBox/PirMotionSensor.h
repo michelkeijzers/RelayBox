@@ -14,10 +14,17 @@ public:
 
 	void Setup(int pin);
 
+	void Update();
+
+	int SecondsUntilInitialized();
+
 	bool IsMotionDetected();
 
 private:
-
 	uint8_t _pin;
+
+	int _secondsUntilInitialized;
+
+	bool _isMotionDetected;
 };
 
