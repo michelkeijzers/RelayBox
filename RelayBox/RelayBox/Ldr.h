@@ -11,7 +11,6 @@ public:
 	Ldr(uint8_t pin);
 
 	int GetLdrValue();
-
 	void Update();
 
 private:

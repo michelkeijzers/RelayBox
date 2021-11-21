@@ -8,11 +8,9 @@ class NtpServerTime
 {
 public:
 	NtpServerTime();
-	
 	void Setup();
 
 	void Update();
-
 	const char* TimeAsString();
 
 private:

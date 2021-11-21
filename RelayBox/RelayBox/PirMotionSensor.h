@@ -9,13 +9,10 @@ class PirMotionSensor
 {
 public:
 	PirMotionSensor();
-
 	void Setup(int pin);
 
 	void Update();
-
 	int SecondsUntilInitialized();
-
 	bool IsMotionDetected();
 
 private:

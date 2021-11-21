@@ -11,11 +11,9 @@ class FourChannelRelayModule
 {
 public:
 	FourChannelRelayModule();
-
 	void Setup(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4);
 
 	bool GetRelayState(int index);
-
 	void SetRelayState(int index, bool state);
 
 	void Update();

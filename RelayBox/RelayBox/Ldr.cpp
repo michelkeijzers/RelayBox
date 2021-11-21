@@ -17,5 +17,3 @@ int Ldr::GetLdrValue()
 {
 	return _ldrValue;
 }
-
-

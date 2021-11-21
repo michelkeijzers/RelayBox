@@ -9,15 +9,11 @@ class RelayBoxServer
 {
 public:
 	RelayBoxServer();
-
 	static void SetRelayBox(RelayBox* relayBox);
-
 	void SetCallbacks();
-
 	void Setup();
 
 	void HandleClient();
-
 	static void Send(int code = 200);
 
 private:

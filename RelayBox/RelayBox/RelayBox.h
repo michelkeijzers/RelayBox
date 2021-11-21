@@ -12,19 +12,14 @@ class RelayBox
 {
 public:
 	RelayBox();
-
 	void setup();
 
 	void loop();
 
 	NtpServerTime& GetTime();
-
 	DallasTemperature& GetTempSensor(); // TODO Change to app specific Temperature
-
 	Ldr& GetLdr();
-
 	PirMotionSensor& GetPirMotionSensor();
-
 	FourChannelRelayModule& GetFourChannelRelayModule();
 	
 private:
