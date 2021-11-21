@@ -1,12 +1,12 @@
 #include "ClassNames.h"
 #include HEADER_FILE(DALLAS_TEMPERATURE_CLASS)
 
-#include "PirMotionSensor.h"
-#include "Buzzer.h"
-#include "NtpServerTime.h"
-#include "FourChannelRelayModule.h"
-#include "Ldr.h"
 #include "RelayBoxServer.h"
+#include "NtpServerTime.h"
+#include "Ldr.h"
+#include "PirMotionSensor.h"
+#include "FourChannelRelayModule.h"
+#include "Buzzer.h"
 
 class RelayBox
 {
@@ -21,18 +21,18 @@ public:
 
 	DallasTemperature& GetTempSensor(); // TODO Change to app specific Temperature
 
-	PirMotionSensor& GetPirMotionSensor();
-
 	Ldr& GetLdr();
 
-	FourChannelRelayModule& GetFourChannelRelayModule();
+	PirMotionSensor& GetPirMotionSensor();
 
+	FourChannelRelayModule& GetFourChannelRelayModule();
+	
 private:
 	RelayBoxServer _server;
 	NtpServerTime _time;
+	Ldr _ldr;
 	DallasTemperature _tempSensors;
 	PirMotionSensor _pirMotionSensor;
-	Ldr _ldr;
 	FourChannelRelayModule _fourChannelRelayModule;
 	Buzzer _buzzer;
 };

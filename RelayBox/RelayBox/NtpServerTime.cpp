@@ -15,9 +15,10 @@ NtpServerTime::NtpServerTime()
 void NtpServerTime::Setup()
 {
     configTime(GMT_OFFSET_SEC, DAYLIGHT_OFFSET_SEC, NTP_SERVER);
+    Update();
 }
 
-void NtpServerTime::Receive()
+void NtpServerTime::Update()
 {
     struct tm timeInfo;
 

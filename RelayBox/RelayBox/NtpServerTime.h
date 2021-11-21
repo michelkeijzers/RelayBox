@@ -11,7 +11,7 @@ public:
 	
 	void Setup();
 
-	void Receive();
+	void Update();
 
 	const char* TimeAsString();
 

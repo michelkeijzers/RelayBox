@@ -14,6 +14,8 @@ void Buzzer::Setup(int pin)
 	_pin = pin;
 	ledcSetup(LED_CHANNEL, FREQUENCY, RESOLUTION);
 	ledcAttachPin(pin, LED_CHANNEL);
+
+	PlayWait(440.0, 25);
 }
 
 
