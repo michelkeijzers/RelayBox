@@ -7,8 +7,4 @@ OneWire::OneWire(int bus)
 }
 
 
-OneWire::~OneWire()
-{
-}
-
 #endif // WIN32

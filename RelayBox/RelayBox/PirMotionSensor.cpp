@@ -13,11 +13,6 @@ PirMotionSensor::PirMotionSensor()
 }
 
 
-PirMotionSensor::~PirMotionSensor()
-{
-}
-
-
 void PirMotionSensor::Setup(int pin)
 {
 	_pin = pin;

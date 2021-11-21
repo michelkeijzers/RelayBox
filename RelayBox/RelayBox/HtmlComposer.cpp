@@ -1,12 +1,11 @@
 #include "HtmlComposer.h"
 
-HtmlComposer::HtmlComposer(ServerData& serverData)
-: _serverData(serverData)
-{
-}
+#include "RelayBox.h"
+#include "NtpServerTime.h" //TODO
 
 
-HtmlComposer::~HtmlComposer()
+HtmlComposer::HtmlComposer(RelayBox* relayBox)
+: _relayBox(*relayBox)
 {
 }
 
@@ -31,12 +30,12 @@ void HtmlComposer::Compose(STRING& ptr)
     ptr += "<h1>ESP32 Relay Box</h1>\n";
 
     Serial.print("LED1 state:");
-    Serial.print(_serverData.GetLed1Status());
+    Serial.print(_relayBox.GetFourChannelRelayModule().GetRelayState(0));
     Serial.print(", LED2 state:");
-    Serial.println(_serverData.GetLed2Status());
+    Serial.println(_relayBox.GetFourChannelRelayModule().GetRelayState(1));
 
 
-    if (_serverData.GetLed1Status())
+    if (_relayBox.GetFourChannelRelayModule().GetRelayState(0))
     {
         ptr += "<p>LED1 Status: ON</p><a class=\"button button-off\" href=\"/led1off\">OFF</a>\n";
     }
@@ -45,7 +44,7 @@ void HtmlComposer::Compose(STRING& ptr)
         ptr += "<p>LED1 Status: OFF</p><a class=\"button button-on\" href=\"/led1on\">ON</a>\n";
     }
 
-    if (_serverData.GetLed2Status())
+    if (_relayBox.GetFourChannelRelayModule().GetRelayState(1))
     {
         ptr += "<p>LED2 Status: ON</p><a class=\"button button-off\" href=\"/led2off\">OFF</a>\n";
     }
@@ -56,33 +55,25 @@ void HtmlComposer::Compose(STRING& ptr)
 
     char buffer[256];
 
-    //Serial.print("  Sensor data: ");
-    //Serial.println(_serverData.GetLdrSensorValue());
     ptr += "<p>LDR value: ";
-    sprintf_s(buffer, "%d", _serverData.GetLdrSensorValue());
+    sprintf_s(buffer, "%d", _relayBox.GetLdr().GetLdrValue());
     ptr += buffer;
     ptr += "</p>";
 
-    //Serial.print("  Current Date/Time: ");
-    //Serial.println(_serverData.GetTime());
     ptr += "<p>Current Date/Time: ";
-    sprintf_s(buffer, "%s", _serverData.GetTime());
+    sprintf_s(buffer, "%s", _relayBox.GetTime().TimeAsString());
     ptr += buffer;
     ptr += "</p>";
 
-    //Serial.print("  Temperature: ");
-    //Serial.println(_serverData.GetTemperature());
     ptr += "<p>Temperature: ";
-    sprintf_s(buffer, "%.1f", _serverData.GetTemperature());
+    sprintf_s(buffer, "%.1f", _relayBox.GetTempSensor().getTempCByIndex(0));
     ptr += buffer;
     ptr += "</p>";
 
-    //Serial.print("  Motion sensor: ");
-    //Serial.println(_serverData.IsPirMotionSensorMotionDetected());
     ptr += "<p>PIR Motion Sensor: ";
-    if (_serverData.PirMotionSensorSecondsUntilInitialized() == 0)
+    if (_relayBox.GetPirMotionSensor().SecondsUntilInitialized() == 0)
     {
-        if (_serverData.IsPirMotionSensorMotionDetected())
+        if (_relayBox.GetPirMotionSensor().IsMotionDetected())
         {
             ptr += "Motion Detected";
         }
@@ -93,7 +84,7 @@ void HtmlComposer::Compose(STRING& ptr)
     }
     else
     {
-        sprintf_s(buffer, "Initializing for %d s", _serverData.PirMotionSensorSecondsUntilInitialized());
+        sprintf_s(buffer, "Initializing for %d s", _relayBox.GetPirMotionSensor().SecondsUntilInitialized());
         ptr += buffer;
     }
 

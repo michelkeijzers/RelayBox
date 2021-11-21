@@ -10,9 +10,6 @@
 #include HEADER_FILE(ONE_WIRE_CLASS)
 #include HEADER_FILE(DALLAS_TEMPERATURE_CLASS)
 
-#include "PirMotionSensor.h"
-#include "Buzzer.h"
-#include "NtpServerTime.h"
 #include "WifiConnection.h"
 #include "RelayBoxServer.h"
 #include "HtmlComposer.h"
@@ -20,7 +17,6 @@
 // DS18B20
 const int ONE_WIRE_BUS = 4; // TODO
 OneWire _oneWire(ONE_WIRE_BUS);
-DallasTemperature _tempSensors(&_oneWire);
 
 const uint8_t PIN_LED_1 = 4;
 const uint8_t PIN_LED_2 = 5;
@@ -28,21 +24,16 @@ const uint8_t PIN_BUZZER = 32;
 const uint8_t PIN_PIR_MOTION_SENSOR = 39;
 const uint8_t PIN_LDR = A0;
 
-RelayBoxServer _server;
-WifiConnection _wifiConnection;
-NtpServerTime _time;
-PirMotionSensor _pirMotionSensor;
-Buzzer _buzzer;
 long _lastUpdate = millis();
+
+WifiConnection _wifiConnection;
 
 
 RelayBox::RelayBox()
+: _tempSensors(&_oneWire),
+  _ldr(PIN_LDR)
 {
-}
-
-
-RelayBox::~RelayBox()
-{
+    _server.SetRelayBox(this);
 }
 
 
@@ -64,30 +55,52 @@ void RelayBox::setup()
 
 void RelayBox::loop()
 {
-    ServerData& serverData = _server.GetServerData();
-
     _server.HandleClient();
 
     //TODO Move to RelayModule
-    digitalWrite(PIN_LED_1, serverData.GetLed1Status());
-    digitalWrite(PIN_LED_2, serverData.GetLed2Status());
+    digitalWrite(PIN_LED_1, _fourChannelRelayModule.GetRelayState(0));
+    digitalWrite(PIN_LED_2, _fourChannelRelayModule.GetRelayState(1));
 
     if (millis() - _lastUpdate > 1000) // TODO: Or when LED changed (led button pressed on website)
     {
         _lastUpdate = millis();
-        serverData.SetLdrSensorValue(analogRead(PIN_LDR));
+        _ldr.Update();
         _tempSensors.requestTemperatures(); // Takes quite some time
-        serverData.SetTemperature(_tempSensors.getTempCByIndex(0));
-
-        // Set to MotionDetector
         _pirMotionSensor.Update();
-        serverData.SetPirMotionSensorData(_pirMotionSensor.SecondsUntilInitialized(), _pirMotionSensor.IsMotionDetected());
-        
         _time.Receive();
-        serverData.SetTime(_time.TimeAsString());
         
         Serial.println("UpdateHTML");
-        HtmlComposer composer(serverData);
+        HtmlComposer composer(this);
         _server.Send();
     }
+}
+
+
+NtpServerTime& RelayBox::GetTime()
+{
+    return _time;
+}
+
+
+DallasTemperature& RelayBox::GetTempSensor()
+{
+    return _tempSensors;
+}
+
+
+PirMotionSensor& RelayBox::GetPirMotionSensor()
+{
+    return _pirMotionSensor;
+}
+
+
+FourChannelRelayModule& RelayBox::GetFourChannelRelayModule()
+{
+    return _fourChannelRelayModule;
+}
+
+
+Ldr& RelayBox::GetLdr()
+{
+    return _ldr;
 }

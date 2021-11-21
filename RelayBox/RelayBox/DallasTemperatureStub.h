@@ -10,8 +10,6 @@ class DallasTemperature
 public:
 	DallasTemperature(OneWire* oneWire);
 
-	~DallasTemperature();
-
 	void begin();
 
 	void requestTemperatures();

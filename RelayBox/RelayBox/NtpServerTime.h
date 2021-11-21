@@ -8,8 +8,7 @@ class NtpServerTime
 {
 public:
 	NtpServerTime();
-	~NtpServerTime();
-
+	
 	void Setup();
 
 	void Receive();

@@ -6,8 +6,6 @@ class OneWire
 {
 public:
 	OneWire(int bus);
-
-	~OneWire();
 };
 
 #endif // WIN32

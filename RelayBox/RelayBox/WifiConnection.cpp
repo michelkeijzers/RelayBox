@@ -14,11 +14,6 @@ WifiConnection::WifiConnection()
 }
 
 
-WifiConnection::~WifiConnection()
-{
-}
-
-
 void WifiConnection::Connect()
 {
     Serial.println("Connecting to ");

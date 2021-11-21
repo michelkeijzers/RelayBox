@@ -11,8 +11,6 @@ class WebServer
 public:
 	WebServer(int port);
 
-	~WebServer();
-
 	void begin();
 
 	void handleClient();

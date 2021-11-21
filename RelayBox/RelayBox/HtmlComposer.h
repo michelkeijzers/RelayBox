@@ -3,19 +3,16 @@
 #include "ClassNames.h"
 #include HEADER_FILE(ARDUINO_CLASS)
 
-#include "ServerData.h"
-
+class RelayBox;
 
 class HtmlComposer
 {
 public:
-	HtmlComposer(ServerData& serverData);
-
-	~HtmlComposer();
+	HtmlComposer(RelayBox* relayBox);
 
 	void Compose(STRING& ptr);
 
 private:
-	ServerData& _serverData;
+	RelayBox& _relayBox;
 };
 

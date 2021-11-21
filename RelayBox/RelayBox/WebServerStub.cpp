@@ -7,11 +7,6 @@ WebServer::WebServer(int port)
 }
 
 
-WebServer::~WebServer()
-{
-}
-
-
 void WebServer::begin()
 {
 }

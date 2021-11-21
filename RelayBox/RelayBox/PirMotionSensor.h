@@ -10,8 +10,6 @@ class PirMotionSensor
 public:
 	PirMotionSensor();
 
-	~PirMotionSensor();
-
 	void Setup(int pin);
 
 	void Update();

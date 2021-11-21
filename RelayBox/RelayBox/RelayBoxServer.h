@@ -3,21 +3,20 @@
 #include "ClassNames.h"
 #include HEADER_FILE(ARDUINO_CLASS)
 
-#include "ServerData.h"
+class RelayBox;
 
 class RelayBoxServer
 {
 public:
 	RelayBoxServer();
-	~RelayBoxServer();
+
+	static void SetRelayBox(RelayBox* relayBox);
 
 	void SetCallbacks();
 
 	void Setup();
 
 	void HandleClient();
-
-	static ServerData& GetServerData();
 
 	static void Send(int code = 200);
 
@@ -29,5 +28,5 @@ private:
 	static void HandleLed2Off();
 	static void HandleNotFound();
 
-	static ServerData _serverData;
+	static RelayBox* _relayBox;
 };

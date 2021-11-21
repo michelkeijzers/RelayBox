@@ -7,11 +7,6 @@ DallasTemperature::DallasTemperature(OneWire* oneWire)
 }
 
 
-DallasTemperature::~DallasTemperature()
-{
-}
-
-
 void DallasTemperature::begin()
 {
 }

@@ -140,16 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArduinoStub.cpp" />
+    <ClCompile Include="AssertUtils.cpp" />
     <ClCompile Include="Buzzer.cpp" />
     <ClCompile Include="DallasTemperatureStub.cpp" />
+    <ClCompile Include="FourChannelRelayModule.cpp" />
     <ClCompile Include="HtmlComposer.cpp" />
+    <ClCompile Include="Ldr.cpp" />
     <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="OneWireStub.cpp" />
     <ClCompile Include="PirMotionSensor.cpp" />
     <ClCompile Include="RelayBox.cpp" />
     <ClCompile Include="NtpServerTime.cpp" />
     <ClCompile Include="RelayBoxServer.cpp" />
-    <ClCompile Include="ServerData.cpp" />
     <ClCompile Include="WifiConnection.cpp" />
     <ClCompile Include="SerialStub.cpp" />
     <ClCompile Include="WebServerStub.cpp" />
@@ -161,17 +163,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArduinoStub.h" />
+    <ClInclude Include="AssertUtils.h" />
     <ClInclude Include="Buzzer.h" />
     <ClInclude Include="ClassNames.h" />
     <ClInclude Include="DallasTemperatureStub.h" />
+    <ClInclude Include="FourChannelRelayModule.h" />
     <ClInclude Include="HtmlComposer.h" />
+    <ClInclude Include="Ldr.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="NtpServerTime.h" />
     <ClInclude Include="OneWireStub.h" />
     <ClInclude Include="PirMotionSensor.h" />
     <ClInclude Include="RelayBox.h" />
     <ClInclude Include="RelayBoxServer.h" />
-    <ClInclude Include="ServerData.h" />
     <ClInclude Include="WifiConnection.h" />
     <ClInclude Include="SerialStub.h" />
     <ClInclude Include="WebServerStub.h" />

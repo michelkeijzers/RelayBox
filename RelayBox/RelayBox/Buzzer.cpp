@@ -9,11 +9,6 @@ Buzzer::Buzzer()
 }
 
 
-Buzzer::~Buzzer()
-{
-}
-
-
 void Buzzer::Setup(int pin)
 {
 	_pin = pin;

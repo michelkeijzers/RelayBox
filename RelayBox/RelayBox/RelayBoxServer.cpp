@@ -1,4 +1,5 @@
 #include "RelayBoxServer.h"
+#include "RelayBox.h"
 
 #include "ClassNames.h"
 #include HEADER_FILE(WEB_SERVER_CLASS)
@@ -7,7 +8,7 @@
 
 WebServer server(80);
 
-ServerData RelayBoxServer::_serverData;
+/* static */ RelayBox* RelayBoxServer::_relayBox = NULL;
 
 
 RelayBoxServer::RelayBoxServer()
@@ -15,8 +16,9 @@ RelayBoxServer::RelayBoxServer()
 }
 
 
-RelayBoxServer::~RelayBoxServer()
+/* static */ void RelayBoxServer::SetRelayBox(RelayBox* relayBox)
 {
+    _relayBox = relayBox;
 }
 
 
@@ -33,13 +35,6 @@ void RelayBoxServer::HandleClient()
 }
 
 
-
-/* static */ ServerData& RelayBoxServer::GetServerData()
-{
-    return _serverData;
-}
-
-
 /* static */ void RelayBoxServer::Send(int code /* = 200 */)
 {
     STRING text;
@@ -48,7 +43,7 @@ void RelayBoxServer::HandleClient()
     {
     case 200:
     {
-        HtmlComposer composer(_serverData);
+        HtmlComposer composer(_relayBox);
         composer.Compose(text);
     }
     break;
@@ -79,8 +74,8 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::OnConnect()
 {
-    _serverData.SetLed1Status(LOW);
-    _serverData.SetLed2Status(LOW);
+    _relayBox->GetFourChannelRelayModule().SetRelayState(0, LOW);
+    _relayBox->GetFourChannelRelayModule().SetRelayState(1, LOW);
     Serial.println("LED1 and LED2: OFF");
 
     Send();
@@ -89,9 +84,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed1On()
 {
-    if (_serverData.GetLed1Status() == LOW)
+    if (_relayBox->GetFourChannelRelayModule().GetRelayState(0) == LOW)
     {
-        _serverData.SetLed1Status(HIGH);
+        _relayBox->GetFourChannelRelayModule().SetRelayState(0, HIGH);
         Serial.println("LED1: ON");
         Send();
     }
@@ -100,9 +95,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed1Off()
 {
-    if (_serverData.GetLed1Status() == HIGH)
+    if (_relayBox->GetFourChannelRelayModule().GetRelayState(0) == HIGH)
     {
-        _serverData.SetLed1Status(LOW);
+        _relayBox->GetFourChannelRelayModule().SetRelayState(0, LOW);
         Serial.println("LED1: OFF");
         Send();
     }
@@ -111,9 +106,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed2On()
 {
-    if (_serverData.GetLed2Status() == LOW)
+    if (_relayBox->GetFourChannelRelayModule().GetRelayState(1) == LOW)
     {
-        _serverData.SetLed2Status(HIGH);
+        _relayBox->GetFourChannelRelayModule().SetRelayState(1, HIGH);
         Serial.println("LED2: ON");
         Send();
     }
@@ -122,9 +117,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed2Off()
 {
-    if (_serverData.GetLed2Status() == HIGH)
+    if (_relayBox->GetFourChannelRelayModule().GetRelayState(1) == HIGH)
     {
-        _serverData.SetLed2Status(LOW);
+        _relayBox->GetFourChannelRelayModule().SetRelayState(1, LOW);
         Serial.println("LED2: OFF");
         Send();
     }
