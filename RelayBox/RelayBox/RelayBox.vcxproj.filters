@@ -87,6 +87,15 @@
     <ClCompile Include="Ldr.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="AsyncTcpStub.cpp">
+      <Filter>Source Files\Stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="EspAsyncWebServerStub.cpp">
+      <Filter>Source Files\Stubs</Filter>
+    </ClCompile>
+    <ClCompile Include="ArduinoStringStub.cpp">
+      <Filter>Source Files\Stubs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buzzer.h">
@@ -142,6 +151,15 @@
     </ClInclude>
     <ClInclude Include="Ldr.h">
       <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncTcpStub.h">
+      <Filter>Header Files\Stubs</Filter>
+    </ClInclude>
+    <ClInclude Include="EspAsyncWebServerStub.h">
+      <Filter>Header Files\Stubs</Filter>
+    </ClInclude>
+    <ClInclude Include="ArduinoStringStub.h">
+      <Filter>Header Files\Stubs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

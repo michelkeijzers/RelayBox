@@ -2,9 +2,13 @@
 
 #pragma once
 
+#include "ClassNames.h"
+#include HEADER_FILE(ARDUINO_CLASS)
+
 // Decimal
 constexpr auto DEC = 1;
 constexpr auto HEX = 2;
+
 
 class SerialClass
 {
@@ -13,13 +17,16 @@ public:
 
 	void println();
 	void println(const char* str);
+	//void println(STRING str);
 	void println(char value);
 	void println(unsigned int value);
 	void println(int value);
 	void println(int value, int mode);
 	void println(float value);
 
+	void print();
 	void print(const char* str);
+	//void print(STRING str);
 	void print(char value);
 	void print(unsigned int value);
 	void print(int value);

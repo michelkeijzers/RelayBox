@@ -14,15 +14,16 @@
 #include <cstring>
 #include <cstdio>
 #include <iostream>
+#include "ArduinoStringStub.h"
 
 #define F
 #define PROGMEM
 
-typedef std::string STRING;
+typedef ArduinoStringStub STRING;
 
 constexpr auto LED_BUILTIN = 10;
 
-constexpr auto INPUT = 0;
+constexpr auto GPIO_INPUT = 0;
 constexpr auto OUTPUT = 1;
 
 constexpr auto LOW = false;

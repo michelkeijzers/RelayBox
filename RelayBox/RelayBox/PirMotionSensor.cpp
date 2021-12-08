@@ -1,6 +1,7 @@
-#include "PirMotionSensor.h"
-
+#include "ClassNames.h"
+#include HEADER_FILE(ARDUINO_CLASS)
 #include "MathUtils.h"
+#include "PirMotionSensor.h"
 
 const int INITIALIZATION_TIME = 60 * 1000;
 
@@ -16,7 +17,7 @@ PirMotionSensor::PirMotionSensor()
 void PirMotionSensor::Setup(int pin)
 {
 	_pin = pin;
-	pinMode(_pin, INPUT);
+	pinMode(_pin, GPIO_INPUT);
 }
 
 

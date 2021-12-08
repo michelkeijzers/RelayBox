@@ -2,11 +2,19 @@
 #include "RelayBox.h"
 
 #include "ClassNames.h"
-#include HEADER_FILE(WEB_SERVER_CLASS)
+#include HEADER_FILE(ARDUINO_CLASS)
+#include HEADER_FILE(WIFI_CLASS)
+#include HEADER_FILE(ASYNC_TCP_CLASS)
+//#include HEADER_FILE(WEB_SERVER_CLASS)
+#include HEADER_FILE(ESP_ASYNC_WEB_SERVER_CLASS)
 #include "HtmlComposer.h"
 
 
-WebServer server(80);
+AsyncWebServer server(80);
+
+AsyncWebSocket webSocket("/ws");
+
+char textBuffer[1024];
 
 /* static */ RelayBox* RelayBoxServer::_relayBox = NULL;
 
@@ -22,45 +30,7 @@ RelayBoxServer::RelayBoxServer()
 }
 
 
-void RelayBoxServer::Setup()
-{
-    server.begin();
-    Serial.println("HTTP server started");
-}
-
-
-void RelayBoxServer::HandleClient()
-{
-    server.handleClient();
-}
-
-
-/* static */ void RelayBoxServer::Send(int code /* = 200 */)
-{
-    STRING text;
-
-    switch (code)
-    {
-    case 200:
-    {
-        HtmlComposer composer(_relayBox);
-        composer.Compose(text);
-    }
-    break;
-
-    case 404:
-        text = "Not found";
-        break;
-
-    default:
-        break;
-    }
-
-    Serial.println(code);
-    server.send(code, "text/html", text);
-}
-
-
+/*
 void RelayBoxServer::SetCallbacks()
 {
     server.on("/", OnConnect);
@@ -70,7 +40,7 @@ void RelayBoxServer::SetCallbacks()
     server.on("/led2off", HandleLed2Off);
     server.onNotFound(HandleNotFound);
 }
-
+*/
 
 /* static */ void RelayBoxServer::OnConnect()
 {
@@ -129,4 +99,116 @@ void RelayBoxServer::SetCallbacks()
 /* static */ void RelayBoxServer::HandleNotFound()
 {
     Send(404);
+}
+
+
+
+// NEW
+
+/* static */ void RelayBoxServer::InitWebSocket()
+{
+    webSocket.onEvent(OnEvent);
+    server.addHandler(&webSocket);
+}
+
+
+
+void RelayBoxServer::Begin()
+{
+    server.begin();
+    Serial.println("HTTP server started");
+}
+
+
+/* static */ STRING RelayBoxServer::Processor(const STRING& var)
+{
+    Serial.println(var.c_str()); // TODO: Remove c_str()
+    if (var == "STATE") 
+    {
+        if (_relayBox->GetFourChannelRelayModule().GetRelayState(1)) 
+        {
+            return "ON";
+        }
+        else 
+        {
+            return "OFF";
+        }
+    }
+    return "";
+}
+
+
+
+/* static */ void RelayBoxServer::NotifyClients() 
+{
+    bool state = _relayBox->GetFourChannelRelayModule().GetRelayState(1);
+    webSocket.textAll(state ? "1" : "0");
+}
+
+/* static */ void RelayBoxServer::HandleWebSocketMessage(void* arg, uint8_t* data, size_t len) {
+    AwsFrameInfo* info = (AwsFrameInfo*)arg;
+    if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
+        data[len] = 0;
+        if (strcmp((char*)data, "toggle") == 0) {
+            _relayBox->GetFourChannelRelayModule().SetRelayState(1, !_relayBox->GetFourChannelRelayModule().GetRelayState(1));
+            NotifyClients();
+        }
+    }
+}
+
+/* static */ void RelayBoxServer::OnEvent(AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type,
+    void* arg, uint8_t* data, size_t len) 
+{
+    switch (type) {
+    case WS_EVT_CONNECT:
+        // TODO Serial.printf("WebSocket client #%u connected from %s\n", client->id(), client->remoteIP().toString().c_str());
+        break;
+    case WS_EVT_DISCONNECT:
+        //TODO Serial.printf("WebSocket client #%u disconnected\n", client->id());
+        break;
+    case WS_EVT_DATA:
+        HandleWebSocketMessage(arg, data, len);
+        break;
+    case WS_EVT_PONG:
+    case WS_EVT_ERROR:
+        break;
+    }
+}
+
+
+
+/* static */ void RelayBoxServer::Send(int code /* = 200 */)
+{
+    STRING text;
+
+    switch (code)
+    {
+    case 200:
+    {
+        HtmlComposer composer(_relayBox);
+        composer.Compose(text);
+    }
+    break;
+
+    case 404:
+        text = "Not found";
+        break;
+
+    default:
+        break;
+    }
+
+    Serial.println(code);
+
+    text.toCharArray(textBuffer, text.length() + 1);
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest* request)
+        {
+            request->send_P(200, "text/html", textBuffer, Processor);
+        });
+}
+
+
+void RelayBoxServer::CleanupClients()
+{
+    webSocket.cleanupClients();
 }

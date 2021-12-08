@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32; DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -139,10 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArduinoStringStub.cpp" />
     <ClCompile Include="ArduinoStub.cpp" />
     <ClCompile Include="AssertUtils.cpp" />
+    <ClCompile Include="AsyncTcpStub.cpp" />
     <ClCompile Include="Buzzer.cpp" />
     <ClCompile Include="DallasTemperatureStub.cpp" />
+    <ClCompile Include="EspAsyncWebServerStub.cpp" />
     <ClCompile Include="FourChannelRelayModule.cpp" />
     <ClCompile Include="HtmlComposer.cpp" />
     <ClCompile Include="Ldr.cpp" />
@@ -162,11 +165,14 @@
     <None Include="RelayBox.ino" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArduinoStringStub.h" />
     <ClInclude Include="ArduinoStub.h" />
     <ClInclude Include="AssertUtils.h" />
+    <ClInclude Include="AsyncTcpStub.h" />
     <ClInclude Include="Buzzer.h" />
     <ClInclude Include="ClassNames.h" />
     <ClInclude Include="DallasTemperatureStub.h" />
+    <ClInclude Include="EspAsyncWebServerStub.h" />
     <ClInclude Include="FourChannelRelayModule.h" />
     <ClInclude Include="HtmlComposer.h" />
     <ClInclude Include="Ldr.h" />

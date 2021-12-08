@@ -4,6 +4,7 @@
 #include "Windows.h"
 #include "stdio.h"
 
+
 SerialClass Serial;
 SerialPort SoftwareSerial;
 SerialPort HardwareSerial;
@@ -27,6 +28,13 @@ void SerialClass::println(const char* str)
 	swprintf_s(_message, L"%s\n", _string);
 	OutputDebugString(_message);
 }
+
+
+//TODO
+//void SerialClass::println(STRING str)
+//{
+//	println(str.c_str());
+//}
 
 
 void SerialClass::println(char value)
@@ -65,6 +73,13 @@ void SerialClass::println(float value)
 }
 
 
+void SerialClass::print()
+{
+	swprintf_s(_message, L"");
+	OutputDebugString(_message);
+}
+
+
 void SerialClass::print(const char* str)
 {
 	size_t sizet;
@@ -72,6 +87,13 @@ void SerialClass::print(const char* str)
 	swprintf_s(_message, L"%s", _string);
 	OutputDebugString(_message);
 }
+
+
+// TODO
+//void SerialClass::print(STRING str)
+//{
+//	print(str.c_str());
+//}
 
 
 void SerialClass::print(int value, int mode)

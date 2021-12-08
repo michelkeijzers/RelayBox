@@ -44,8 +44,11 @@ void RelayBox::setup()
 {
     Serial.begin(115200);
     _wifiConnection.Connect();
-    _server.Setup();
-    _server.SetCallbacks();
+    _server.InitWebSocket();
+
+    _server.Send();
+    _server.Begin();
+    //_server.SetCallbacks();
     _time.Setup();
     _tempSensors.begin(); // TODO : change to setup and specific class
     _pirMotionSensor.Setup(PIN_PIR_MOTION_SENSOR);
@@ -55,7 +58,7 @@ void RelayBox::setup()
 
 void RelayBox::loop()
 {
-    _server.HandleClient();
+    //_server.HandleClient();
 
     if (millis() - _lastUpdate > 1000) // TODO: Or when LED changed (led button pressed on website)
     {
@@ -67,6 +70,8 @@ void RelayBox::loop()
         _pirMotionSensor.Update();
         _fourChannelRelayModule.Update();
         _server.Send();
+
+        _server.CleanupClients();
     }
 }
 
