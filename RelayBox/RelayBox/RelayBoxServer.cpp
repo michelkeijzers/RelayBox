@@ -10,7 +10,7 @@
 #include "HtmlComposer.h"
 
 
-AsyncWebServer server(80);
+//NEWAsyncWebServer server(80);
 
 AsyncWebSocket webSocket("/ws");
 
@@ -44,8 +44,8 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::OnConnect()
 {
-    _relayBox->GetFourChannelRelayModule().SetRelayState(0, LOW);
-    _relayBox->GetFourChannelRelayModule().SetRelayState(1, LOW);
+    //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(0, LOW);
+    //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(1, LOW);
     Serial.println("LED1 and LED2: OFF");
 
     Send();
@@ -54,9 +54,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed1On()
 {
-    if (_relayBox->GetFourChannelRelayModule().GetRelayState(0) == LOW)
+    //NEW if (_relayBox->GetFourChannelRelayModule().GetRelayState(0) == LOW)
     {
-        _relayBox->GetFourChannelRelayModule().SetRelayState(0, HIGH);
+        //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(0, HIGH);
         Serial.println("LED1: ON");
         Send();
     }
@@ -65,9 +65,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed1Off()
 {
-    if (_relayBox->GetFourChannelRelayModule().GetRelayState(0) == HIGH)
+    //NEW if (_relayBox->GetFourChannelRelayModule().GetRelayState(0) == HIGH)
     {
-        _relayBox->GetFourChannelRelayModule().SetRelayState(0, LOW);
+        //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(0, LOW);
         Serial.println("LED1: OFF");
         Send();
     }
@@ -76,9 +76,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed2On()
 {
-    if (_relayBox->GetFourChannelRelayModule().GetRelayState(1) == LOW)
+    //NEW if (_relayBox->GetFourChannelRelayModule().GetRelayState(1) == LOW)
     {
-        _relayBox->GetFourChannelRelayModule().SetRelayState(1, HIGH);
+        //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(1, HIGH);
         Serial.println("LED2: ON");
         Send();
     }
@@ -87,9 +87,9 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::HandleLed2Off()
 {
-    if (_relayBox->GetFourChannelRelayModule().GetRelayState(1) == HIGH)
+    //NEW if (_relayBox->GetFourChannelRelayModule().GetRelayState(1) == HIGH)
     {
-        _relayBox->GetFourChannelRelayModule().SetRelayState(1, LOW);
+        //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(1, LOW);
         Serial.println("LED2: OFF");
         Send();
     }
@@ -107,15 +107,15 @@ void RelayBoxServer::SetCallbacks()
 
 /* static */ void RelayBoxServer::InitWebSocket()
 {
-    webSocket.onEvent(OnEvent);
-    server.addHandler(&webSocket);
+    //webSocket.onEvent(OnEvent);
+    //NEW server.addHandler(&webSocket);
 }
 
 
 
 void RelayBoxServer::Begin()
 {
-    server.begin();
+    //NEW server.begin();
     Serial.println("HTTP server started");
 }
 
@@ -125,13 +125,13 @@ void RelayBoxServer::Begin()
     Serial.println(var.c_str()); // TODO: Remove c_str()
     if (var == "STATE") 
     {
-        if (_relayBox->GetFourChannelRelayModule().GetRelayState(1)) 
+        //NEW if (_relayBox->GetFourChannelRelayModule().GetRelayState(1)) 
         {
             return "ON";
         }
-        else 
+        //NEW else 
         {
-            return "OFF";
+            //NEW #include HEADER_FILE(ARDUINO_CLASS)return "OFF";
         }
     }
     return "";
@@ -141,8 +141,8 @@ void RelayBoxServer::Begin()
 
 /* static */ void RelayBoxServer::NotifyClients() 
 {
-    bool state = _relayBox->GetFourChannelRelayModule().GetRelayState(1);
-    webSocket.textAll(state ? "1" : "0");
+    //NEW bool state = _relayBox->GetFourChannelRelayModule().GetRelayState(1);
+    //NEW webSocket.textAll(state ? "1" : "0");
 }
 
 /* static */ void RelayBoxServer::HandleWebSocketMessage(void* arg, uint8_t* data, size_t len) {
@@ -150,15 +150,18 @@ void RelayBoxServer::Begin()
     if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
         data[len] = 0;
         if (strcmp((char*)data, "toggle") == 0) {
-            _relayBox->GetFourChannelRelayModule().SetRelayState(1, !_relayBox->GetFourChannelRelayModule().GetRelayState(1));
+            //NEW _relayBox->GetFourChannelRelayModule().SetRelayState(1, !_relayBox->GetFourChannelRelayModule().GetRelayState(1));
             NotifyClients();
         }
     }
 }
 
-/* static */ void RelayBoxServer::OnEvent(AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type,
+//TODO: Used? 
+/* static */ void RelayBoxServer::OnEvent(/* AsyncWebSocket* server, */ AsyncWebSocketClient* client, AwsEventType type,
     void* arg, uint8_t* data, size_t len) 
 {
+    (void)client;
+
     switch (type) {
     case WS_EVT_CONNECT:
         // TODO Serial.printf("WebSocket client #%u connected from %s\n", client->id(), client->remoteIP().toString().c_str());
@@ -183,28 +186,28 @@ void RelayBoxServer::Begin()
 
     switch (code)
     {
-    case 200:
-    {
-        HtmlComposer composer(_relayBox);
-        composer.Compose(text);
-    }
-    break;
+        case 200:
+        {
+            HtmlComposer composer(_relayBox);
+            composer.Compose(text);
+            break;
+        }
 
-    case 404:
-        text = "Not found";
-        break;
+        case 404:
+            text = "Not found";
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 
     Serial.println(code);
 
     text.toCharArray(textBuffer, text.length() + 1);
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest* request)
-        {
-            request->send_P(200, "text/html", textBuffer, Processor);
-        });
+    //NEW server.on("/", HTTP_GET, [](AsyncWebServerRequest* request)
+        //{
+        //    request->send_P(200, "text/html", textBuffer, Processor);
+        //});
 }
 
 

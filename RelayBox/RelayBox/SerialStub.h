@@ -3,7 +3,8 @@
 #pragma once
 
 #include "ClassNames.h"
-#include HEADER_FILE(ARDUINO_CLASS)
+#include "ArduinoStub.h"
+#include "ArduinoStringStub.h"
 
 // Decimal
 constexpr auto DEC = 1;
@@ -17,7 +18,7 @@ public:
 
 	void println();
 	void println(const char* str);
-	//void println(STRING str);
+	void println(ArduinoStringStub str);
 	void println(char value);
 	void println(unsigned int value);
 	void println(int value);
@@ -26,7 +27,7 @@ public:
 
 	void print();
 	void print(const char* str);
-	//void print(STRING str);
+	void print(ArduinoStringStub str);
 	void print(char value);
 	void print(unsigned int value);
 	void print(int value);

@@ -52,13 +52,25 @@ public:
 };
 
 
+struct ASWSRData
+{
+public:
+	STRING value();
+};
+
 
 typedef std::function<void(const STRING& text)> ProcessorHandlerFunction;
 
 class AsyncWebServerRequest
 {
 public:
+	void send(int port, const char* textHmlt, STRING text);
+
 	void send_P(int port, const char* textHmlt, STRING text, ProcessorHandlerFunction function);
+
+	bool hasParam(const char* param);
+	ASWSRData* getParam(const char* param);
+
 };
 
 
@@ -74,7 +86,7 @@ public:
 
 typedef int AwsEventType;
 
-typedef void (*callback_function)(AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, void* arg, uint8_t* data, size_t len);
+typedef void (*callback_function)(/* AsyncWebSocket* server, */ AsyncWebSocketClient* client, AwsEventType type, void* arg, uint8_t* data, size_t len);
 
 
 class AsyncWebSocket
@@ -99,8 +111,8 @@ public:
 
 public:
 	int final;
-	int index;
-	int len;
+	unsigned int index;
+	unsigned int len;
 	int opcode;
 };
 

@@ -4,6 +4,7 @@
 #include <string>
 
 #include "RelayBox.h"
+
 int main()
 {
 	std::cout << "WIN APP: RELAY BOX 0.1\n";

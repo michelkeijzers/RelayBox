@@ -12,6 +12,8 @@ public:
 	ArduinoStringStub(const char* str);
 
 	void toCharArray(const char* buffer, int length);
+
+	int toInt();
 };
 
 #endif

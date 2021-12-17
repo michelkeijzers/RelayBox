@@ -9,7 +9,7 @@ class PirMotionSensor
 {
 public:
 	PirMotionSensor();
-	void Setup(int pin);
+	void Setup(uint8_t pin);
 
 	void Update();
 	int SecondsUntilInitialized();

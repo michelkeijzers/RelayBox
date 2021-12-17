@@ -9,7 +9,7 @@ Buzzer::Buzzer()
 }
 
 
-void Buzzer::Setup(int pin)
+void Buzzer::Setup(uint8_t pin)
 {
 	_pin = pin;
 	ledcSetup(LED_CHANNEL, FREQUENCY, RESOLUTION);

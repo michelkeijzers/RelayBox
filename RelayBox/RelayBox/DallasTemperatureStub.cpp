@@ -4,6 +4,7 @@
 
 DallasTemperature::DallasTemperature(OneWire* oneWire)
 {
+	(void)oneWire;
 }
 
 
@@ -19,6 +20,7 @@ void DallasTemperature::requestTemperatures()
 
 float DallasTemperature::getTempCByIndex(int sensorIndex)
 {
+	(void)sensorIndex;
 	return 127.0;
 }
 

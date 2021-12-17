@@ -3,6 +3,7 @@
 #include "RelayBox.h"
 #include "NtpServerTime.h" //TODO
 
+class RelayBox;
 
 HtmlComposer::HtmlComposer(RelayBox* relayBox)
 : _relayBox(*relayBox)
@@ -12,7 +13,7 @@ HtmlComposer::HtmlComposer(RelayBox* relayBox)
 
 void HtmlComposer::Compose(STRING& ptr)
 {
-    const char index_html[] PROGMEM = R"(
+    ptr = R"(
         <!DOCTYPE html> <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">

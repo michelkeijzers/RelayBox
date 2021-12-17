@@ -5,7 +5,7 @@ class Buzzer
 {
 public:
 	Buzzer();
-	void Setup(int pin);
+	void Setup(uint8_t pin);
 
 	void Play(float frequency);
 	void PlayWait(float frequency, int durationMs);

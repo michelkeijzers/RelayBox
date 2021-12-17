@@ -30,11 +30,10 @@ void SerialClass::println(const char* str)
 }
 
 
-//TODO
-//void SerialClass::println(STRING str)
-//{
-//	println(str.c_str());
-//}
+void SerialClass::println(ArduinoStringStub str)
+{
+	println(str.c_str());
+}
 
 
 void SerialClass::println(char value)
@@ -89,11 +88,10 @@ void SerialClass::print(const char* str)
 }
 
 
-// TODO
-//void SerialClass::print(STRING str)
-//{
-//	print(str.c_str());
-//}
+void SerialClass::print(ArduinoStringStub str)
+{
+	print(str.c_str());
+}
 
 
 void SerialClass::print(int value, int mode)

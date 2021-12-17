@@ -4,6 +4,7 @@
 
 OneWire::OneWire(int bus)
 {
+	(void)bus;
 }
 
 

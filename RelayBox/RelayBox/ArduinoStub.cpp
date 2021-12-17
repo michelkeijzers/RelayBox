@@ -23,12 +23,14 @@ extern void pinMode(uint8_t pin, int state)
 
 extern bool digitalRead(uint8_t pin)
 {
+	(void)pin;
 	return rand() % 2 == 0 ? true : false;
 }
 
 extern void digitalWrite(uint8_t pin, bool state)
 {
-	// TODO
+	(void)pin;
+	(void)state;
 }
 
 
@@ -36,6 +38,7 @@ extern void digitalWrite(uint8_t pin, bool state)
 
 extern uint16_t analogRead(uint8_t pin)
 {
+	(void)pin;
 	return rand() % 4096;
 }
 
@@ -124,6 +127,7 @@ extern uint32_t random(uint32_t number)
 
 extern void randomSeed(uint16_t seed)
 {
+	(void)seed;
 	srand((unsigned int)time(nullptr));
 }
 
@@ -142,19 +146,23 @@ extern void randomSeed(uint16_t seed)
 
 void ledcSetup(int ledChannel, int frequency, int resolution)
 {
-
+	(void)ledChannel;
+	(void)frequency;
+	(void)resolution;
 }
 
 
 void ledcAttachPin(int pin, int ledChannel)
 {
-
+	(void)pin;
+	(void)ledChannel;
 }
 
 
-void ledcWriteTone(int ledCHannel, float frequency)
+void ledcWriteTone(int ledChannel, float frequency)
 {
-
+	(void)ledChannel;
+	(void)frequency;
 }
 
 

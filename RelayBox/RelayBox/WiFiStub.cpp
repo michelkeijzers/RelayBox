@@ -10,6 +10,8 @@ WiFiStub WiFi;
 
 void WiFiStub::begin(const char* ssid, const char* password)
 {
+	(void)ssid;
+	(void)password;
 }
 
 
@@ -29,12 +31,16 @@ int WiFiStub::status()
 
 void configTime(int gmtOffsetSec, int daylightOffsetSec, const char* ntp_server)
 {
+	(void)gmtOffsetSec;
+	(void)daylightOffsetSec;
+	(void)ntp_server;
 
 }
 
 
 bool getLocalTime(struct tm* timeInfo)
 {
+	(void)timeInfo;
 	return true;
 }
 

@@ -14,7 +14,7 @@ PirMotionSensor::PirMotionSensor()
 }
 
 
-void PirMotionSensor::Setup(int pin)
+void PirMotionSensor::Setup(uint8_t pin)
 {
 	_pin = pin;
 	pinMode(_pin, GPIO_INPUT);
