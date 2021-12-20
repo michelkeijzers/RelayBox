@@ -25,10 +25,6 @@ public:
 private:
 	WifiConnection _wifiConnection;
 
-	// STRING processor(const STRING& var);
-
-	//STRING outputState(int8_t output);
-
 //	NtpServerTime& GetTime();
 //	DallasTemperature& GetTempSensor(); // TODO Change to app specific Temperature
 //	Ldr& GetLdr();

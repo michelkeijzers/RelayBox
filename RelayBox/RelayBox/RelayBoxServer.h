@@ -14,12 +14,17 @@ public:
 	RelayBoxServer();
 	static void SetRelayBox(RelayBox* relayBox);
 
+	void Begin();
 
+private:
+    static STRING Processor(const STRING& var);
+
+	static STRING OutputState(int8_t output);
+	
 	// NEW
 	static void InitWebSocket();
-	void Begin();
 	static void Send(int code = 200);
-	static STRING Processor(const STRING& var);
+	//static STRING Processor(const STRING& var);
 	void CleanupClients();
 
 	static void NotifyClients();
@@ -28,7 +33,7 @@ public:
 		void* arg, uint8_t* data, size_t len);
 
 
-private:
+//private
 	static void OnConnect();
 	static void HandleLed1On();
 	static void HandleLed1Off();
